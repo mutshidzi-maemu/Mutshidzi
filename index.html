@@ -1,0 +1,533 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farm Registration & Food Security Project</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('IMG-20241211-WA0057.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    header {
+      text-align: center;
+      background: linear-gradient(45deg, #27ae60, #2ecc71);
+      color: white;
+      padding: 30px 10px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+    }
+
+    header p {
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+
+    /* Floating index container */
+    #floating-index {
+      position: fixed;
+      top: 80px;
+      left: 25px;
+      width: 260px;
+      max-height: 85vh;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 20px 18px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+    }
+
+    #floating-index::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #floating-index::-webkit-scrollbar-thumb {
+      background: #27ae60;
+      border-radius: 10px;
+    }
+
+    #floating-index h2 {
+      text-align: center;
+      font-size: 1.6em;
+      background: linear-gradient(45deg, #27ae60, #2ecc71);
+      
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    #floating-index p {
+      color: #2c3e50;
+      font-size: 0.95em;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #floating-index ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #floating-index li {
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+
+    #floating-index a {
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    #floating-index li:hover a {
+      color: #27ae60;
+    }
+
+    #floating-index a.active {
+      color: #27ae60;
+      font-weight: 700;
+      background: rgba(39, 174, 96, 0.12);
+      border-radius: 6px;
+      padding: 4px 6px;
+      box-shadow: 0 0 8px rgba(39, 174, 96, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    #floating-index blockquote {
+      background: #fdfbe7;
+      border-left: 6px solid #f1c40f;
+      padding: 10px 15px;
+      font-style: italic;
+      color: #7f8c8d;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 0.85em;
+      line-height: 1.4;
+    }
+
+    main {
+      margin-left: 320px;
+      padding: 30px;
+      max-width: 900px;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.95);
+      margin-bottom: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    section h2 {
+      color: #27ae60;
+      border-bottom: 2px solid #27ae60;
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+
+    section p, section ul {
+      line-height: 1.6;
+    }
+
+    ul li a {
+      color: #27ae60;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to the Farm Registration & Food Security Project</h1>
+    <p>Empowering communities through research, technology, and sustainable farming 🌾</p>
+  </header>
+
+  <!-- Floating Index -->
+  <aside id="floating-index">
+    <h2>Index</h2>
+    <p>
+      Discover every part of our research and innovation — a journey of learning, collaboration, and impact.
+    </p>
+    <ul>
+      <li><a href="#study">1. Study Overview</a></li>
+      <li><a href="#literature">2. Literature Review</a></li>
+      <li><a href="#methodology">3. Research Methodology</a></li>
+      <li><a href="#findings">4. Research Findings</a></li>
+      <li><a href="#recommendations">5. Recommendations</a></li>
+      <li><a href="#team">6. Project Team & Academic Info</a></li>
+      <li><a href="#study-summary">7. Food Security Study Summary</a></li>
+      <li><a href="#farm-system">8. Farm Registration System</a></li>
+      <li><a href="register.html">9. Register Your Account</a></li>
+      <li><a href="login.html">10. Login to Dashboard</a></li>
+    </ul>
+    <blockquote>
+      “From knowledge to growth — every section below plants a seed of change for our communities.” 🌿
+    </blockquote>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+
+  <!-- Expanded Study Overview -->
+  <section id="study">
+    <h2>Study Overview</h2>
+    <p>
+      Food security has become a crucial issue in both developing and developed countries, affecting people’s health, livelihoods, and overall quality of life. 
+      This study focuses on exploring how community-driven agricultural initiatives — such as food gardens — can address local food insecurity, promote sustainability, and improve living standards, particularly within rural and semi-urban communities.
+    </p>
+
+    <p>
+      The main goal of this study is to analyze the current challenges facing communities in achieving consistent access to nutritious food and to identify practical solutions through technology, education, and collaboration. 
+      By combining computing knowledge and agricultural research, the project aims to develop digital tools that simplify farm management, enhance productivity, and create awareness about sustainable farming methods.
+    </p>
+
+    <p>
+      The research also investigates the social, economic, and environmental factors contributing to food insecurity, such as climate change, limited access to agricultural resources, and lack of modern farming knowledge. 
+      It further explores how integrating technology — including farm registration systems, mobile applications, and data-driven decision-making — can empower small-scale farmers and improve efficiency.
+    </p>
+
+    <p>
+      The study forms part of the <strong>Joint Group Assignment (JGA) 2025</strong> under the Faculty of ICT. It is a collaboration between students of Computer Science and Multimedia, guided by the Department of Computer Systems Engineering. 
+      The project emphasizes <strong>community engagement</strong> and aims to demonstrate how digital innovation can contribute to solving real-world challenges related to food security.
+    </p>
+
+    <blockquote>
+      “Food security is not just about having enough to eat — it’s about access, knowledge, and sustainability. Through this study, we aim to build bridges between technology and agriculture for a better future.” 🌾
+    </blockquote>
+
+    <p>
+      Ultimately, this study provides a foundation for a community-based digital platform that helps farmers register, monitor, and manage their food production efficiently. 
+      It also serves as an educational resource to raise awareness on the importance of sustainable food systems, ensuring that future generations can thrive in a self-sufficient and eco-friendly environment.
+    </p>
+  </section>
+
+  <!-- Expanded Literature Review -->
+  <section id="literature">
+    <h2>Literature Review</h2>
+    <p>
+      The issue of food security has been widely studied across various disciplines, including agriculture, social sciences, and information technology. 
+      According to the <strong>Food and Agriculture Organization (FAO, 2023)</strong>, food security exists when all people have physical, social, and economic access to sufficient, safe, and nutritious food that meets their dietary needs for an active and healthy life. 
+      However, millions of households in developing regions continue to face food shortages due to economic instability, environmental changes, and limited agricultural knowledge.
+    </p>
+
+    <p>
+      Studies by <strong>Devereux and Maxwell (2020)</strong> emphasize that food insecurity is not only a matter of production but also of distribution and accessibility. 
+      Factors such as unemployment, poor infrastructure, and lack of farming resources often lead to low productivity and high dependency on external food sources. 
+      The World Bank (2022) further highlights that empowering local farmers through education, digital tools, and access to markets can significantly reduce food vulnerability in marginalized communities.
+    </p>
+
+    <p>
+      In the South African context, research by <strong>Statistics South Africa (2021)</strong> and the <strong>Department of Agriculture, Land Reform and Rural Development (DALRRD, 2022)</strong> reveals that household food insecurity remains a challenge in rural provinces such as Limpopo and Eastern Cape. 
+      Community garden initiatives have shown measurable improvements in food access and nutrition, especially when supported by training in modern farming and technology integration.
+    </p>
+
+    <p>
+      The role of technology in agriculture — often referred to as <strong>“AgriTech”</strong> — has gained prominence in recent years. 
+      Innovations such as mobile farm management systems, automated irrigation, and digital crop monitoring have helped farmers make informed decisions about planting, fertilization, and harvesting. 
+      According to <strong>Makhetha et al. (2023)</strong>, digital farm registration and data collection platforms play a vital role in improving planning, productivity, and traceability in small-scale farming.
+    </p>
+
+    <p>
+      Previous studies also show that <strong>community involvement and collaboration</strong> are key to achieving long-term food security. 
+      Projects such as the “One Home, One Garden” campaign in South Africa demonstrate that small-scale gardens can significantly improve household nutrition and income if supported with training and monitoring. 
+      Integrating these efforts with technology provides a sustainable model for growth and community empowerment.
+    </p>
+
+    <blockquote>
+      “Technology and tradition are not opposites — when combined, they can cultivate a future where every community thrives on innovation and sustainability.” 🌿
+    </blockquote>
+
+    <p>
+      Therefore, this study builds upon existing research to explore how digital tools, data management systems, and collaborative platforms can enhance community-based food security projects. 
+      The literature reveals that the integration of computing and agriculture is not only innovative but necessary for achieving long-term sustainability and resilience in the face of global challenges such as climate change and population growth.
+    </p>
+  </section>
+
+  <!-- Expanded Research Methodology -->
+  <section id="methodology">
+    <h2>Research Methodology</h2>
+    <p>
+      This study adopted a <strong>mixed-method research approach</strong>, combining both qualitative and quantitative techniques to gain a comprehensive understanding of the challenges and opportunities related to food security in local communities. 
+      The methodology aimed to collect data that would inform the design of the <strong>Farm Registration and Management System</strong> while also capturing real-world perspectives from farmers and community members.
+    </p>
+
+    <h3>1. Research Design</h3>
+    <p>
+      The research followed a <strong>descriptive and exploratory design</strong>. It explored existing food security models, agricultural practices, and technological tools used in small-scale farming. 
+      This design allowed for in-depth analysis of how digital systems can be tailored to meet the needs of rural and urban farmers, ensuring that the developed solution aligns with real community challenges.
+    </p>
+
+    <h3>2. Data Collection Methods</h3>
+    <ul>
+      <li><strong>Surveys and Questionnaires:</strong> Gathered quantitative data about food production, technology use, and sustainable farming awareness.</li>
+      <li><strong>Interviews and Focus Groups:</strong> Conducted with local farmers, agricultural experts, and ICT lecturers to understand barriers and opportunities in adopting technology.</li>
+      <li><strong>Field Observations:</strong> Examined community gardens and soil conditions to observe seasonal crop patterns and local farming behavior.</li>
+      <li><strong>Secondary Data:</strong> Analyzed government and academic reports (FAO, DALRRD, Stats SA) for trends related to food insecurity and agricultural policy.</li>
+    </ul>
+
+    <h3>3. Tools and Technologies Used</h3>
+    <ul>
+      <li><strong>Google Forms / Microsoft Forms</strong> — for online surveys and data gathering.</li>
+      <li><strong>Excel & Python</strong> — for statistical analysis and visualization of collected data.</li>
+      <li><strong>HTML, CSS, JavaScript</strong> — to create the interactive Farm Registration web interface.</li>
+      <li><strong>Java</strong> — for system logic, validation, and user authentication modules.</li>
+    </ul>
+
+    <h3>4. Data Analysis</h3>
+    <p>
+      Quantitative data was analyzed using descriptive statistics to identify major trends in farming practices and challenges. 
+      Qualitative data from interviews and focus groups was thematically analyzed to reveal recurring topics such as climate impact, resource limitations, and community collaboration. 
+      These insights directly informed the structure and functionality of the proposed digital system.
+    </p>
+
+    <h3>5. Ethical Considerations</h3>
+    <p>
+      Participants provided informed consent, and all collected information was treated confidentially. The study adhered to ethical research principles under the <strong>Faculty of ICT</strong>, ensuring respect, privacy, and transparency.
+    </p>
+
+    <blockquote>
+      “Our methodology connects real people, real problems, and real technology — ensuring that every solution we create is both innovative and impactful.” 💡
+    </blockquote>
+
+    <h3>6. Expected Outcomes</h3>
+    <p>
+      The methodology guided the creation of a digital platform that enables farmers to register, access educational resources, and receive farming advice based on their soil type, location, and crop selection. 
+      It further promotes the use of ICT to bridge the gap between agricultural knowledge and community empowerment.
+    </p>
+  </section>
+
+  <!-- Expanded Research Findings -->
+  <section id="findings">
+    <h2>Research Findings</h2>
+    <p>
+      The research revealed several key findings that highlight both challenges and opportunities for improving food security through digital solutions and community engagement.
+    </p>
+
+    <ul>
+      <li><strong>Lack of Access to Information:</strong> Many farmers rely on traditional methods and have limited knowledge of modern agricultural practices or climate adaptation techniques.</li>
+      <li><strong>Soil and Climate Variability:</strong> Different regions require specific crop and fertilizer recommendations, emphasizing the need for localized farming data systems.</li>
+      <li><strong>Technology Gaps:</strong> Most small-scale farmers expressed interest in using mobile tools but lacked awareness or connectivity infrastructure to implement them effectively.</li>
+      <li><strong>Positive Impact of Community Gardens:</strong> Where food gardens were established, households reported improved food supply, reduced grocery costs, and increased nutritional diversity.</li>
+      <li><strong>Collaboration Opportunities:</strong> Partnerships between ICT departments, local farmers, and agricultural agencies show strong potential for sustainable, scalable community projects.</li>
+    </ul>
+
+    <p>
+      The findings suggest that introducing an accessible and easy-to-use <strong>Farm Registration System</strong> could help farmers track production, access training, and connect with government or NGO support programs. 
+      Digital literacy training also emerged as an essential step in ensuring the sustainability of technological interventions in agriculture.
+    </p>
+
+    <blockquote>
+      “Knowledge shared grows communities — and technology ensures that growth never stops.” 🌍
+    </blockquote>
+  </section>
+
+  <!-- Expanded Recommendations -->
+  <section id="recommendations">
+    <h2>Recommendations</h2>
+    <ul>
+      <li><strong>Promote Digital Farming Systems:</strong> Encourage the use of ICT-based tools for farm registration, monitoring, and management.</li>
+      <li><strong>Establish Training Workshops:</strong> Educate farmers on sustainable practices, digital literacy, and soil management techniques.</li>
+      <li><strong>Encourage Local Food Gardens:</strong> Expand community garden initiatives as low-cost, high-impact food security interventions.</li>
+      <li><strong>Develop Support Networks:</strong> Foster collaboration between universities, local farmers, NGOs, and agricultural departments.</li>
+      <li><strong>Integrate Policy Support:</strong> Advocate for government inclusion of digital agriculture programs in food security strategies.</li>
+    </ul>
+
+    <blockquote>
+      “Education and innovation are the seeds of lasting change — when we plant them together, communities thrive.” 🌾
+    </blockquote>
+  </section>
+
+  <!-- Expanded Project Team -->
+  <section id="team">
+    <h2>Project Team & Academic Info</h2>
+    <p>
+      This project was developed by <strong>Cloud Collective</strong> — a group of first-year students under the <strong>Faculty of ICT, Department of Computer Systems Engineering</strong>.
+      It forms part of the <strong>Joint Group Assignment (JGA) 2025</strong>, designed to promote <em>Community Engagement on Food Security Through Garden Projects</em>.
+    </p>
+
+    <p>
+      The team collaborated across disciplines, combining computing, design, and agricultural insights to create a digital system aimed at empowering communities. 
+      The project demonstrates practical application of computing fundamentals, teamwork, and social responsibility.
+    </p>
+
+    <blockquote>
+      “When technology meets teamwork, innovation grows — and so does our impact.” 🤝
+    </blockquote>
+  </section>
+
+  <!-- Expanded Food Security Study Summary -->
+  <section id="study-summary">
+    <h2>Food Security Study Summary</h2>
+    <p>
+      The study concludes that food security is not only about food availability but also about sustainable access, technological awareness, and active community involvement. 
+      Through combining digital innovation with traditional farming methods, local communities can achieve self-sufficiency and resilience.
+    </p>
+
+    <p>
+      The <strong>Farm Registration System</strong> represents the technological output of this research — a platform that allows farmers to register, access crop guidance, and receive localized recommendations based on soil and seasonal data. 
+      It bridges the gap between agriculture and ICT, providing a modern approach to managing food systems efficiently.
+    </p>
+
+    <p>
+      By engaging students, educators, and community members, the project promotes lifelong learning, social innovation, and digital transformation. 
+      It contributes not only to academic development but also to national goals of reducing hunger and supporting sustainable development.
+    </p>
+
+    <blockquote>
+      “Together we can grow resilience — one garden, one seed, one community at a time.” 🌍
+    </blockquote>
+  </section>
+
+
+<!-- Expanded Farm Registration System Section -->
+<section id="farm-system">
+  <h2>Farm Registration and Management System</h2>
+  <p>
+    The <strong>Farm Registration and Management System (FRMS)</strong> is the technological innovation developed from this study. 
+    It serves as a digital platform that allows farmers, community members, and agricultural organizations to register, monitor, and manage their farming activities efficiently. 
+    The system was designed to address key issues identified in the research — including lack of record keeping, limited access to guidance, and the need for localized crop and soil recommendations.
+  </p>
+
+  <h3>1. Purpose of the System</h3>
+  <p>
+    The primary objective of the FRMS is to create a digital link between farmers and agricultural data resources. 
+    By capturing essential information such as user details, soil types, crops grown, and seasonal conditions, the system provides personalized guidance that helps users improve productivity and sustainability.
+  </p>
+  <p>
+    In addition to simplifying data collection, the system supports <strong>community-based decision making</strong> by enabling agricultural officers and project coordinators to view statistics, monitor participation, and track food garden performance across different regions.
+  </p>
+
+  <h3>2. System Features</h3>
+  <ul>
+    <li>
+      <strong>Farmer Registration and Login:</strong> Farmers create an account by entering their full name, ID, email, username, password, and country. 
+      The password setup enforces <strong>strong security standards</strong>, and users can verify their accounts through offline or OTP-based confirmation (via email or phone number).
+    </li>
+    <li>
+      <strong>Dashboard Access:</strong> After login, users are redirected to a personalized dashboard that displays key data such as registered crops, soil type, fertilizer guidelines, and planting seasons.
+    </li>
+    <li>
+      <strong>Soil and Crop Selection:</strong> Users select their soil type (e.g., sandy, clay, loam) and view recommended crops based on regional conditions and seasons. 
+      This feature educates users on soil management and enhances decision-making.
+    </li>
+    <li>
+      <strong>Fertilizer and Cultivation Guidelines:</strong> Each selected crop displays detailed guidance on fertilizer application, watering schedules, pest control, and harvesting methods to ensure maximum yield.
+    </li>
+    <li>
+      <strong>Offline Functionality:</strong> The system allows for temporary offline data storage for areas with limited internet access, ensuring inclusivity in rural communities.
+    </li>
+    <li>
+      <strong>OTP Verification and Password Recovery:</strong> To strengthen security, users receive a one-time password (OTP) via email or SMS for account activation and password resets.
+    </li>
+    <li>
+      <strong>Country-Based Customization:</strong> Upon registration, users select their country, allowing the system to tailor recommendations according to local crops, weather, and soil data.
+    </li>
+  </ul>
+
+  <h3>3. System Architecture Overview</h3>
+  <p>
+    The FRMS was designed using a combination of <strong>frontend and backend technologies</strong> to ensure performance, usability, and data integrity:
+  </p>
+  <ul>
+    <li><strong>Frontend:</strong> HTML, CSS, and JavaScript — for responsive design, form validation, and user interaction.</li>
+    <li><strong>Backend:</strong> Java — for core system logic, user authentication, and data processing.</li>
+    <li><strong>Database:</strong> MySQL — to store registration data, soil details, crop information, and guidelines.</li>
+    <li><strong>Security:</strong> Strong password encryption and OTP verification ensure safe and reliable user access.</li>
+  </ul>
+
+  <p>
+    This multi-tier architecture promotes scalability, allowing the system to grow from a student prototype into a practical community tool used by local municipalities, NGOs, or agricultural departments.
+  </p>
+
+  <h3>4. Workflow of the System</h3>
+  <ol>
+    <li>The user visits the registration page and enters personal details (Full name, ID, Email, Country, Username, Password).</li>
+    <li>The system validates the information and sends an OTP for verification.</li>
+    <li>Upon successful registration, the user logs in to access their dashboard.</li>
+    <li>The user selects their soil type, followed by suitable crops available for that soil and season.</li>
+    <li>The system displays fertilizer recommendations, cultivation guidelines, and resource management tips.</li>
+    <li>The user can update or track their crop progress and receive seasonal reminders.</li>
+  </ol>
+
+  <h3>5. Community Impact</h3>
+  <p>
+    The FRMS not only benefits individual farmers but also contributes to collective community growth. 
+    It helps local organizations monitor participation in food garden initiatives, identify training needs, and analyze agricultural data for better planning.
+  </p>
+  <p>
+    Moreover, it empowers youth and students to apply ICT skills to real-world challenges — strengthening digital literacy and creating employment opportunities in the agri-tech sector.
+  </p>
+
+  <blockquote>
+    “The Farm Registration System turns knowledge into action — connecting farmers, communities, and technology for a sustainable tomorrow.” 🌱
+  </blockquote>
+
+  <h3>6. Future Development</h3>
+  <ul>
+    <li>Integration of GPS mapping for garden locations and crop distribution analysis.</li>
+    <li>AI-driven recommendation system for fertilizers and water usage optimization.</li>
+    <li>Mobile app version for Android and iOS to improve accessibility.</li>
+    <li>Real-time climate data integration through open APIs.</li>
+    <li>Partnership with agricultural departments for national deployment.</li>
+  </ul>
+
+  <p>
+    The system represents the bridge between <strong>community engagement and computing innovation</strong>. 
+    By continuing to refine and expand its features, the Farm Registration System can become a model for sustainable technology-driven food security projects across Africa.
+  </p>
+
+
+      <ul>
+        <li><a href="register.html">Register Your Account</a></li>
+        <li><a href="login.html">Login to Dashboard</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Scroll Highlight Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("main section[id]");
+      const navLinks = document.querySelectorAll("#floating-index a[href^='#']");
+
+      function activateMenu() {
+        const scrollPos = window.scrollY + 150;
+        sections.forEach((section) => {
+          const id = section.getAttribute("id");
+          const offsetTop = section.offsetTop;
+          const height = section.offsetHeight;
+          const link = document.querySelector(`#floating-index a[href="#${id}"]`);
+          if (scrollPos >= offsetTop && scrollPos < offsetTop + height) {
+            navLinks.forEach((l) => l.classList.remove("active"));
+            if (link) link.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", activateMenu);
+    });
+  </script>
+</body>
+</html>

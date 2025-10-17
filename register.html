@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Registration</title>
+  <style>
+    body {
+       background-image: url('mutavhatsindi.jpg'); /* replace with your image name */
+  background-size: cover;       /* Makes the image cover the entire background */
+  background-position: center;  /* Centers the image */
+  background-repeat: no-repeat; /* Prevents repetition */
+  height: 100vh;                /* Makes the background fill the whole viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    }
+
+    header {
+      background-color: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 450px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #43a047;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2e7d32;
+    }
+
+    small {
+      color: red;
+    }
+
+    .otp-section {
+      display: none;
+      text-align: center;
+    }
+
+    .country-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .country-group select {
+      width: 60%;
+    }
+
+    .country-group input {
+      width: 40%;
+    }
+  </style>
+</head>
+<body>
+
+<header>🌾 Farmer Registration</header>
+
+<div class="container" id="register-form">
+  <h2>Register Account</h2>
+  <form id="register">
+    <input type="text" id="fullname" placeholder="Full Name" required />
+    <input type="text" id="idNumber" placeholder="National ID Number" required />
+    <input type="email" id="email" placeholder="Email Address" required />
+
+    <div class="country-group">
+      <select id="country" required onchange="updatePhoneCode()">
+        <option value="">Select Country</option>
+        <option value="South Africa" data-code="+27">South Africa (+27)</option>
+        <option value="Nigeria" data-code="+234">Nigeria (+234)</option>
+        <option value="United States" data-code="+1">United States (+1)</option>
+        <option value="India" data-code="+91">India (+91)</option>
+        <option value="Kenya" data-code="+254">Kenya (+254)</option>
+        <option value="United Kingdom" data-code="+44">United Kingdom (+44)</option>
+        <option value="China" data-code="+86">China (+86)</option>
+        <option value="Brazil" data-code="+55">Brazil (+55)</option>
+        <option value="Canada" data-code="+1">Canada (+1)</option>
+        <option value="Germany" data-code="+49">Germany (+49)</option>
+        <option value="Australia" data-code="+61">Australia (+61)</option>
+        <option value="Japan" data-code="+81">Japan (+81)</option>
+        <option value="Other" data-code="">Other</option>
+      </select>
+      <input type="text" id="phone" placeholder="Phone Number" required />
+    </div>
+
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Create Password" required />
+    <small id="passwordHint"></small>
+
+    <button type="button" onclick="validatePassword()">Register</button>
+  </form>
+   <p>Already have an Account. <a href="login.html">Tap here to log in</a></p>
+</div>
+
+<div class="container otp-section" id="otp-section">
+  <h2>Verify Your Account</h2>
+  <p>Enter the OTP sent to your email or phone</p>
+  <input type="text" id="otp" placeholder="Enter OTP" maxlength="6" required />
+  <button onclick="verifyOTP()">Verify</button>
+</div>
+
+<script>
+  let otpCode = "";
+
+  function updatePhoneCode() {
+    const countrySelect = document.getElementById("country");
+    const selected = countrySelect.options[countrySelect.selectedIndex];
+    const phoneInput = document.getElementById("phone");
+
+    if (selected.dataset.code) {
+      if (!phoneInput.value.startsWith(selected.dataset.code)) {
+        phoneInput.value = selected.dataset.code + " ";
+      }
+    }
+  }
+
+  function validatePassword() {
+    const password = document.getElementById("password").value;
+    const hint = document.getElementById("passwordHint");
+    const hasUpper = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSymbol = /[!@#$%^&*]/.test(password);
+
+    if (password.length < 8 || !hasUpper || !hasNumber || !hasSymbol) {
+      hint.textContent = "Password must include at least 8 characters, one uppercase letter, one number, and one special character.";
+    } else {
+      hint.textContent = "";
+      sendOTP();
+    }
+  }
+
+  function sendOTP() {
+    otpCode = Math.floor(100000 + Math.random() * 900000);
+    alert("Offline OTP for demo: " + otpCode);
+    document.getElementById("register-form").style.display = "none";
+    document.getElementById("otp-section").style.display = "block";
+  }
+
+  function verifyOTP() {
+    const entered = document.getElementById("otp").value;
+    if (entered == otpCode) {
+      alert("Account verified successfully! Registration complete.");
+    } else {
+      alert("Invalid OTP. Please try again.");
+    }
+  }
+</script>
+
+</body>
+</html>

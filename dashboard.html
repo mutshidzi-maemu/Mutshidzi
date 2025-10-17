@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Food Security Through Garden Projects | Dashboard & App</title>
+
+  <!-- Tailwind for the app-style UI (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ====== Original Dashboard Styles (keeps your original look intact) ====== */
+    :root{--green:#228B22;--light:#d3f2e4;--bg:#f0fdf4}
+    body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('IMG-20241211-WA0057.jpg'); /* replace with your image name */
+  background-size: cover;       /* Makes the image cover the entire background */
+  background-position: center;  /* Centers the image */
+  background-repeat: repeat; /* Prevents repetition */
+  height: 100vh;                /* Makes the background fill the whole viewport */
+  display: flex;
+  justify-content: cover;
+  align-items: cover;
+}
+
+    header.orig-header {
+      background-color: var(--green);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+    header.orig-header button {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background-color: white;
+      color: var(--green);
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    header.orig-header button:hover { background-color: #f0fdf4; }
+
+    nav.orig-nav {
+      background-color: var(--light);
+      padding: 10px;
+      text-align: center;
+    }
+    nav.orig-nav a {
+      text-decoration: none;
+      color: var(--green);
+      font-weight: bold;
+      margin: 0 15px;
+    }
+
+    section.orig-section {
+      max-width: 900px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2.orig-h2 {
+      color: var(--green);
+      border-bottom: 2px solid #d3f2e4;
+      padding-bottom: 5px;
+    }
+
+    .math {
+      background-color: #f7fff7;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #cfead0;
+    }
+
+    .orig-form input, .orig-form button {
+      padding: 8px;
+      margin: 6px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .orig-form button {
+      background-color: var(--green);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .orig-form button:hover { background-color: #1e7a1e; }
+
+    footer.orig-footer {
+      background-color: var(--green);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    /* ====== Farm card inside original dashboard ====== */
+    .farm-card {
+      background-color: #f7fff7;
+      border: 1px solid #cfead0;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .farm-card button {
+      background-color: #dc2626;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .farm-card button:hover { background-color: #b91c1c; }
+
+    /* ====== App View specific overrides ====== */
+    #appView { display:none; } /* default: hide app style until user toggles */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+    }
+
+    /* small adjustments for the toggle control */
+    .view-toggle {
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      padding:10px;
+      background:transparent;
+      align-items:center;
+    }
+
+    /* modal for edit farm (simple) */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.4);
+      z-index: 60;
+    }
+    .modal .card {
+      background: white;
+      border-radius: 10px;
+      padding: 18px;
+      width: 95%;
+      max-width: 420px;
+    }
+
+    /* responsive: show app view button on mobile */
+    @media (max-width: 800px) {
+      /* show app view by default for small screens */
+      #dashboardView { display:none; }
+      #appView { display:block; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== Top: toggle between Dashboard / App style (keeps original header too) ====== -->
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 12px; background:transparent;">
+    <div class="view-toggle">
+      <label style="font-weight:bold; color:#065f46;">Mode:</label>
+      <button id="btnDashboard" onclick="switchMode('dashboard')" style="padding:6px 10px; border-radius:8px; border:1px solid #c7f0dd; background:#ecfdf5; font-weight:bold;">Dashboard View</button>
+      <button id="btnApp" onclick="switchMode('app')" style="padding:6px 10px; border-radius:8px; border:1px solid #c7def0; background:white;">App View</button>
+    </div>
+    <div style="padding-right:12px;">
+      <!-- keep logout as original -->
+      <form action="login.html" method="get"><button style="background:#fff;border:1px solid #cfead0;padding:6px 10px;border-radius:8px;color:#065f46;font-weight:bold;">Log Out</button></form>
+    </div>
+  </div>
+
+  <!-- ====== ORIGINAL DASHBOARD (scrollable, keeps everything) ====== -->
+  <div id="dashboardView">
+
+    <header class="orig-header">
+      <h1>Food Security Through Garden Projects</h1>
+      <p>Joint Group Assignment | Faculty of ICT | SDG: No Poverty & Zero Hunger</p>
+      <!-- kept the original logout button but top toggle handled above -->
+    </header>
+
+    <nav class="orig-nav">
+      <a href="#overview">Overview</a>
+      <a href="#case">Case Studies</a>
+      <a href="#math">Math Models</a>
+      <a href="#calc">Java App</a>
+      <a href="#addFarmSection">Add Farm</a>
+      <a href="#recommend">Recommendations</a>
+      <a href="#resources">Resources</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="overview" class="orig-section">
+      <h2 class="orig-h2">📘 Project Overview</h2>
+      <p>This website presents our research on <b>food gardens in South Africa</b>, highlighting how communities can improve food security through sustainable gardening practices.</p>
+      <ul>
+        <li>Research from videos, articles, and websites</li>
+        <li>Mathematical models for yield estimation</li>
+        <li>Java-based garden calculator</li>
+        <li>Recommendations for community engagement</li>
+      </ul>
+    </section>
+
+    <section id="case" class="orig-section">
+      <h2 class="orig-h2">🌾 Case Studies</h2>
+      <ul>
+        <li><b>Project A:</b> Limpopo School Garden</li>
+        <li><b>Project B:</b> Urban Rooftop Garden</li>
+        <li><b>Project C:</b> Rural Cooperative Garden</li>
+        <li><b>Project D:</b> Church-led Garden Initiative</li>
+        <li><b>Project E:</b> Youth Empowerment Garden</li>
+      </ul>
+    </section>
+
+    <section id="math" class="orig-section">
+      <h2 class="orig-h2">📐 Mathematical Models</h2>
+      <div class="math">
+        <p><b>Formula:</b> Yield = Land Size × Yield Rate</p>
+        <p><b>Example:</b> 20m² × 2kg/m² = 40kg</p>
+        <p>Simple algebra and statistical models are used to predict harvest output and seasonal performance.</p>
+      </div>
+    </section>
+
+    <section id="calc" class="orig-section">
+      <h2 class="orig-h2">💻 Java Garden Calculator</h2>
+      <form class="orig-form" onsubmit="calculateYield(); return false();">
+        <label>Household Name:</label><br>
+        <input type="text" id="name" required><br>
+        <label>Land Size (m²):</label><br>
+        <input type="number" id="land" required><br>
+        <label>Yield Rate (kg/m²):</label><br>
+        <input type="number" id="rate" required><br>
+        <button type="button" onclick="calculateYield()">Calculate</button>
+      </form>
+      <p id="result" style="font-weight:bold; margin-top:10px;">🌾 Total Estimated Yield: 0 kg</p>
+    </section>
+
+    <!-- ====== Add Farm Section inside original dashboard ====== -->
+    <section id="addFarmSection" class="orig-section">
+      <h2 class="orig-h2">🌱 Add Farm</h2>
+      <p>Register your farm to track crops and yields for better management.</p>
+      <form id="farmFormDashboard" class="orig-form" onsubmit="addFarmFromDashboard(); return false;">
+        <label>Farm Name:</label><br>
+        <input type="text" id="farmName" required><br>
+        <label>Location:</label><br>
+        <input type="text" id="farmLocation" required><br>
+        <label>Land Size (m²):</label><br>
+        <input type="number" id="farmLand" required><br>
+        <label>Crop Type:</label><br>
+        <input type="text" id="farmCrop" required><br>
+        <button type="submit">➕ Add Farm</button>
+      </form>
+
+      <div id="farmListDashboard" style="margin-top:15px;"></div>
+    </section>
+
+    <section id="recommend" class="orig-section">
+      <h2 class="orig-h2">✅ Recommendations</h2>
+      <ul>
+        <li>Provide training and tools for community gardens</li>
+        <li>Encourage youth participation and school gardens</li>
+        <li>Use cloud platforms for collaboration and tracking</li>
+        <li>Apply cybersecurity principles for safe web hosting</li>
+      </ul>
+    </section>
+
+    <section id="resources" class="orig-section">
+      <h2 class="orig-h2">🔗 Resources</h2>
+      <ul>
+        <li><a href="https://www.fao.org" target="_blank">FAO – Food and Agriculture Organization</a></li>
+        <li><a href="https://www.wfp.org" target="_blank">World Food Programme</a></li>
+        <li><a href="https://www.who.int" target="_blank">World Health Organization</a></li>
+      </ul>
+    </section>
+
+    <section id="contact" class="orig-section">
+      <h2 class="orig-h2">📬 Contact</h2>
+      <p>Email: <a href="mailto:250790260@tut4life.ac.za">250790260@tut4life.ac.za</a></p>
+      <p>Fax: +27 (015) 3562866</p>
+    </section>
+
+    <footer class="orig-footer">
+      © 2025 Undefeated CyberTech | JGA Food Security Project
+    </footer>
+
+  </div>
+  <!-- ====== END DASHBOARD ====== -->
+
+
+
+  <!-- ====== APP VIEW (mobile/tabbed) ====== -->
+  <div id="appView" class="min-h-screen bg-green-50">
+
+    <!-- App header -->
+    <header class="bg-green-700 text-white py-4 text-center font-semibold shadow">
+      🌾 Food Security Garden App
+    </header>
+
+    <!-- App content: pages -->
+    <main class="p-4 pb-28">
+      <!-- My Garden page -->
+      <section id="app-myGarden" class="app-page">
+        <div class="bg-white rounded-2xl shadow p-4 mb-4">
+          <h3 class="text-green-700 font-bold text-lg">🌱 My Farms</h3>
+          <p class="text-sm mt-1">Add a new farm or tap a farm card to view details.</p>
+
+          <form id="farmFormApp" class="mt-3 space-y-2" onsubmit="addFarmFromApp(); return false;">
+            <input id="appFarmName" type="text" placeholder="Farm Name" class="w-full p-2 border rounded-lg" required>
+            <input id="appFarmLocation" type="text" placeholder="Location" class="w-full p-2 border rounded-lg" required>
+            <input id="appFarmLand" type="number" placeholder="Land Size (m²)" class="w-full p-2 border rounded-lg" required>
+            <input id="appFarmCrop" type="text" placeholder="Crop Type" class="w-full p-2 border rounded-lg" required>
+            <button type="submit" class="bg-green-700 text-white w-full py-2 rounded-xl font-semibold">➕ Add Farm</button>
+          </form>
+
+          <div id="farmListApp" class="mt-4 space-y-3"></div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-4">
+          <h3 class="text-green-700 font-bold text-lg">🩺 Health Check (Yield Calculator)</h3>
+          <p class="text-sm mt-1">Estimate your garden’s total yield (global calculator).</p>
+          <div class="mt-3">
+            <label class="block text-sm font-semibold">Land Size (m²):</label>
+            <input id="appLand" type="number" class="w-full p-2 border rounded-lg mt-1 mb-2" placeholder="e.g. 20">
+            <label class="block text-sm font-semibold">Yield Rate (kg/m²):</label>
+            <input id="appRate" type="number" class="w-full p-2 border rounded-lg mt-1 mb-3" placeholder="e.g. 2">
+            <button onclick="calculateYieldApp()" class="bg-green-700 text-white w-full py-2 rounded-xl font-semibold">Calculate</button>
+            <p id="appResult" class="text-green-700 font-bold mt-3">🌾 Total Estimated Yield: 0 kg</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alerts page -->
+      <section id="app-alerts" class="app-page hidden">
+        <div class="bg-white rounded-2xl shadow p-4 mb-4">
+          <h3 class="text-green-700 font-bold">🌦️ Weather Alert</h3>
+          <p class="text-sm mt-1">Upcoming rain expected. Adjust watering schedule.</p>
+        </div>
+        <div class="bg-white rounded-2xl shadow p-4 mb-4">
+          <h3 class="text-green-700 font-bold">🐛 Pest Alert</h3>
+          <p class="text-sm mt-1">Aphid outbreak reported in your region. Inspect crops today.</p>
+        </div>
+      </section>
+
+      <!-- Knowledge page -->
+      <section id="app-knowledge" class="app-page hidden">
+        <div class="bg-white rounded-2xl shadow p-4 mb-4">
+          <h3 class="text-green-700 font-bold">📘 Articles</h3>
+          <p class="text-sm mt-1">Learn sustainable gardening and composting methods.</p>
+        </div>
+        <div class="bg-white rounded-2xl shadow p-4">
+          <h3 class="text-green-700 font-bold">🎥 Videos</h3>
+          <p class="text-sm mt-1">Watch step-by-step tutorials on organic pest control.</p>
+        </div>
+      </section>
+
+      <!-- Community page -->
+      <section id="app-community" class="app-page hidden">
+        <div class="bg-white rounded-2xl shadow p-4 mb-4">
+          <h3 class="text-green-700 font-bold">💬 Forum</h3>
+          <p class="text-sm mt-1">Connect with other gardeners and share advice.</p>
+        </div>
+        <div class="bg-white rounded-2xl shadow p-4">
+          <h3 class="text-green-700 font-bold">🌱 Seed Exchange</h3>
+          <p class="text-sm mt-1">Trade seeds and expand your crop diversity.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav">
+      <button class="app-tab text-green-700 font-semibold" onclick="showAppPage('app-myGarden', this)">🏡<div class="text-xs">My Garden</div></button>
+      <button class="app-tab text-gray-500" onclick="showAppPage('app-alerts', this)">⚠️<div class="text-xs">Alerts</div></button>
+      <button class="app-tab text-gray-500" onclick="showAppPage('app-knowledge', this)">📚<div class="text-xs">Knowledge</div></button>
+      <button class="app-tab text-gray-500" onclick="showAppPage('app-community', this)">👥<div class="text-xs">Community</div></button>
+    </nav>
+
+  </div>
+  <!-- ====== END APP VIEW ====== -->
+
+
+  <!-- ====== Edit Farm Modal (used by both views) ====== -->
+  <div id="editModal" class="modal">
+    <div class="card">
+      <h3 style="margin:0 0 8px 0;font-weight:bold;color:#065f46;">Edit Farm</h3>
+      <form id="editFarmForm" onsubmit="saveFarmEdit(event)">
+        <input id="editFarmName" type="text" class="w-full p-2 border rounded mb-2" required placeholder="Farm Name">
+        <input id="editFarmLocation" type="text" class="w-full p-2 border rounded mb-2" required placeholder="Location">
+        <input id="editFarmLand" type="number" class="w-full p-2 border rounded mb-2" required placeholder="Land Size (m²)">
+        <input id="editFarmCrop" type="text" class="w-full p-2 border rounded mb-3" required placeholder="Crop Type">
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button type="button" onclick="closeEditModal()" style="padding:8px 12px;border-radius:8px;">Cancel</button>
+          <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====== Scripts: farms management, calc, mode switching ====== -->
+  <script>
+    /* ---------- Mode switching (dashboard / app) ---------- */
+    function switchMode(mode) {
+      const dashboard = document.getElementById('dashboardView');
+      const app = document.getElementById('appView');
+      const btnDash = document.getElementById('btnDashboard');
+      const btnApp = document.getElementById('btnApp');
+
+      if (mode === 'app') {
+        dashboard.style.display = 'none';
+        app.style.display = 'block';
+        btnApp.style.background = '#ecfdf5';
+        btnDash.style.background = 'white';
+      } else {
+        dashboard.style.display = 'block';
+        app.style.display = 'none';
+        btnDash.style.background = '#ecfdf5';
+        btnApp.style.background = 'white';
+      }
+    }
+
+    // default: show app on small screens, otherwise dashboard (handled by CSS media query).
+    // But ensure buttons reflect current visibility:
+    (function initModeButtons(){
+      const isAppVisible = window.getComputedStyle(document.getElementById('appView')).display !== 'none';
+      if (isAppVisible) {
+        document.getElementById('btnApp').style.background = '#ecfdf5';
+      } else {
+        document.getElementById('btnDashboard').style.background = '#ecfdf5';
+      }
+    })();
+
+    /* ---------- Farms CRUD (localStorage) ---------- */
+    function getFarms() {
+      return JSON.parse(localStorage.getItem('farms') || '[]');
+    }
+    function setFarms(arr) {
+      localStorage.setItem('farms', JSON.stringify(arr));
+    }
+
+    function addFarmFromDashboard() {
+      // read from dashboard form nodes (kept names)
+      const name = document.getElementById('farmName').value.trim();
+      const location = document.getElementById('farmLocation').value.trim();
+      const land = document.getElementById('farmLand').value.trim();
+      const crop = document.getElementById('farmCrop').value.trim();
+      addFarmCommon(name, location, land, crop);
+      document.getElementById('farmFormDashboard').reset();
+    }
+
+    function addFarmFromApp() {
+      const name = document.getElementById('appFarmName').value.trim();
+      const location = document.getElementById('appFarmLocation').value.trim();
+      const land = document.getElementById('appFarmLand').value.trim();
+      const crop = document.getElementById('appFarmCrop').value.trim();
+      addFarmCommon(name, location, land, crop);
+      document.getElementById('farmFormApp').reset();
+    }
+
+    function addFarmCommon(name, location, land, crop) {
+      if (!name || !location || !land || !crop) {
+        alert('Please fill in all farm fields.');
+        return;
+      }
+      const farms = getFarms();
+      farms.push({ name, location, land: Number(land), crop });
+      setFarms(farms);
+      refreshAllFarmLists();
+    }
+
+    function refreshAllFarmLists() {
+      renderFarmListDashboard();
+      renderFarmListApp();
+    }
+
+    function renderFarmListDashboard() {
+      const container = document.getElementById('farmListDashboard');
+      const farms = getFarms();
+      container.innerHTML = '';
+      if (farms.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#555;">No farms added yet.</p>';
+        return;
+      }
+      farms.forEach((f, idx) => {
+        const div = document.createElement('div');
+        div.className = 'farm-card';
+        div.innerHTML = `
+          <div style="max-width:78%;">
+            <strong>${escapeHtml(f.name)}</strong><br>
+            📍 ${escapeHtml(f.location)}<br>
+            🌾 ${escapeHtml(f.crop)} — ${f.land} m²
+          </div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <button onclick="openEditModal(${idx})" title="Edit">✏️</button>
+            <button onclick="viewFarm(${idx})" title="View">🔎</button>
+            <button onclick="deleteFarm(${idx})" title="Delete">🗑️</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderFarmListApp() {
+      const container = document.getElementById('farmListApp');
+      const farms = getFarms();
+      container.innerHTML = '';
+      if (farms.length === 0) {
+        container.innerHTML = '<p class="text-sm text-gray-500">No farms yet — add one above.</p>';
+        return;
+      }
+      farms.forEach((f, idx) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-3 rounded-xl shadow flex justify-between items-start';
+        card.innerHTML = `
+          <div>
+            <div class="font-bold text-green-700">${escapeHtml(f.name)}</div>
+            <div class="text-sm text-gray-600">📍 ${escapeHtml(f.location)}</div>
+            <div class="text-sm text-gray-600">🌾 ${escapeHtml(f.crop)} — ${f.land} m²</div>
+          </div>
+          <div class="flex flex-col gap-2 items-end">
+            <button class="text-sm text-green-700 font-semibold" onclick="viewFarm(${idx})">View</button>
+            <div class="flex gap-2">
+              <button class="text-sm text-gray-500" onclick="openEditModal(${idx})">Edit</button>
+              <button class="text-sm text-red-600" onclick="deleteFarm(${idx})">Delete</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function deleteFarm(index) {
+      if (!confirm('Delete this farm?')) return;
+      const farms = getFarms();
+      farms.splice(index, 1);
+      setFarms(farms);
+      refreshAllFarmLists();
+    }
+
+    /* ---------- Edit modal logic ---------- */
+    let currentEditIndex = null;
+    function openEditModal(index) {
+      const farms = getFarms();
+      const f = farms[index];
+      if (!f) return;
+      currentEditIndex = index;
+      document.getElementById('editFarmName').value = f.name;
+      document.getElementById('editFarmLocation').value = f.location;
+      document.getElementById('editFarmLand').value = f.land;
+      document.getElementById('editFarmCrop').value = f.crop;
+      document.getElementById('editModal').style.display = 'flex';
+    }
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+      currentEditIndex = null;
+    }
+    function saveFarmEdit(e) {
+      e.preventDefault();
+      const name = document.getElementById('editFarmName').value.trim();
+      const location = document.getElementById('editFarmLocation').value.trim();
+      const land = Number(document.getElementById('editFarmLand').value);
+      const crop = document.getElementById('editFarmCrop').value.trim();
+
+      if (currentEditIndex === null) return;
+      const farms = getFarms();
+      farms[currentEditIndex] = { name, location, land, crop };
+      setFarms(farms);
+      closeEditModal();
+      refreshAllFarmLists();
+    }
+
+    /* ---------- Farm Details view ---------- */
+    function viewFarm(index) {
+      const farms = getFarms();
+      const f = farms[index];
+      if (!f) return;
+      // Build a simple overlay with farm details and yield per-farm calculator
+      const overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.inset = '0';
+      overlay.style.background = 'rgba(0,0,0,0.45)';
+      overlay.style.display = 'flex';
+      overlay.style.alignItems = 'center';
+      overlay.style.justifyContent = 'center';
+      overlay.style.zIndex = 80;
+
+      const card = document.createElement('div');
+      card.style.width = '95%';
+      card.style.maxWidth = '420px';
+      card.style.background = 'white';
+      card.style.borderRadius = '12px';
+      card.style.padding = '18px';
+      card.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h3 style="margin:0; color:#065f46;">${escapeHtml(f.name)}</h3>
+          <div style="display:flex; gap:8px;">
+            <button style="background:#f87171;color:white;border:none;padding:6px 8px;border-radius:8px;" onclick="overlayClose(this)">Close</button>
+          </div>
+        </div>
+        <div style="font-size:14px;color:#333;">
+          <p>📍 <strong>${escapeHtml(f.location)}</strong></p>
+          <p>🌾 <strong>${escapeHtml(f.crop)}</strong></p>
+          <p>📐 Land Size: <strong>${f.land} m²</strong></p>
+        </div>
+        <hr style="margin:10px 0;">
+        <div>
+          <label style="font-weight:600;display:block;">Yield Rate (kg/m²)</label>
+          <input id="detailRate" type="number" placeholder="e.g. 2" style="width:100%;padding:8px;border-radius:8px;border:1px solid #ddd;margin-top:6px;">
+          <button id="detailCalcBtn" style="margin-top:10px;background:#16a34a;color:white;border:none;padding:8px 12px;border-radius:10px;">Calculate Farm Yield</button>
+          <p id="detailResult" style="margin-top:8px;font-weight:bold;color:#065f46;"></p>
+        </div>
+      `;
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      document.getElementById('detailCalcBtn').onclick = function () {
+        const r = parseFloat(document.getElementById('detailRate').value) || 0;
+        const total = (Number(f.land) || 0) * r;
+        document.getElementById('detailResult').innerText = '🌾 Estimated Yield: ' + total + ' kg';
+      };
+
+      window.overlayClose = function(btn) {
+        document.body.removeChild(overlay);
+      };
+    }
+
+    /* ---------- Global calculators ---------- */
+    function calculateYield() {
+      const land = parseFloat(document.getElementById('land').value) || 0;
+      const rate = parseFloat(document.getElementById('rate').value) || 0;
+      const total = land * rate;
+      document.getElementById('result').innerText = '🌾 Total Estimated Yield: ' + total + ' kg';
+    }
+    function calculateYieldApp() {
+      const land = parseFloat(document.getElementById('appLand').value) || 0;
+      const rate = parseFloat(document.getElementById('appRate').value) || 0;
+      const total = land * rate;
+      document.getElementById('appResult').innerText = '🌾 Total Estimated Yield: ' + total + ' kg';
+    }
+
+    /* ---------- App page switching ---------- */
+    function showAppPage(id, btn) {
+      document.querySelectorAll('.app-page').forEach(p => p.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+      document.querySelectorAll('.app-tab').forEach(t => {
+        t.classList.remove('text-green-700','font-semibold');
+        t.classList.add('text-gray-500');
+      });
+      btn.classList.add('text-green-700','font-semibold');
+    }
+
+    /* ---------- Helpers ---------- */
+    function escapeHtml(s) {
+      if (!s && s !== 0) return '';
+      return String(s).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; });
+    }
+
+    /* ---------- Initialize on page load ---------- */
+    (function init(){
+      refreshAllFarmLists();
+      // ensure app default page is myGarden
+      showAppPage('app-myGarden', document.querySelector('.app-tab'));
+    })();
+  </script>
+</body>
+</html>
